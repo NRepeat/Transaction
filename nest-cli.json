@@ -1,0 +1,39 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/order/src",
+  "monorepo": true,
+  "root": "apps/order",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/order/tsconfig.app.json"
+  },
+  "projects": {
+    "order": {
+      "type": "application",
+      "root": "apps/order",
+      "entryFile": "main",
+      "sourceRoot": "apps/order/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/order/tsconfig.app.json"
+      }
+    },
+    "telegram": {
+      "type": "application",
+      "root": "apps/telegram",
+      "entryFile": "main",
+      "sourceRoot": "apps/telegram/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/telegram/tsconfig.app.json"
+      }
+    },
+    "common": {
+      "type": "library",
+      "root": "libs/common",
+      "entryFile": "index",
+      "sourceRoot": "libs/common/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common/tsconfig.lib.json"
+      }
+    }
+  }
+}
