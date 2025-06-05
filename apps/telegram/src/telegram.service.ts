@@ -4,6 +4,8 @@ import { Context } from 'telegraf';
 import { Cache } from 'cache-manager';
 import { InjectBot } from 'nestjs-telegraf';
 import { Telegraf } from 'telegraf';
+import { ClientProxy } from '@nestjs/microservices';
+import { ORDER_SERVICE } from './constants';
 
 @Injectable()
 export class TelegramService {
@@ -12,8 +14,26 @@ export class TelegramService {
   constructor(
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     @InjectBot() private bot: Telegraf<Context>,
+    @Inject(ORDER_SERVICE) private orderClient: ClientProxy,
   ) {}
+  async placeOrder(chatId: string, message: string) {
+    this.logger.log(`Placing order for chatId: ${chatId}`);
+    const response = this.orderClient.emit('place_order', {
+      chatId,
+      message,
+    });
 
+    this.logger.log('Order placed successfully');
+    response.subscribe({
+      next: (res) => {
+        this.logger.log(`Response: ${JSON.stringify(res)}`);
+      },
+      error: (err) => {
+        this.logger.error(`Error in order placement: ${err.message}`);
+      },
+    });
+    return response;
+  }
   async sendMessage(sagaId: string, message: string, chatId: string) {
     const sentKey = `telegram_sent:${sagaId}`;
 

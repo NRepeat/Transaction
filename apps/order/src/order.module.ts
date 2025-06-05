@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { TELEGRAM_SERVICE } from './constants';
 import { OrdersModule } from './modules/orders/orders.module';
 import { ByBitApiModule } from './modules/by-bit-api/by-bit-api.module';
 import { SagaModule } from './modules/saga/saga.module';
 import { CacheModule } from '@nestjs/cache-manager';
-import { RmqModule } from '@app/common';
 // import { DatabaseModule, RmqModule, AuthModule } from '@app/common';
 // import { OrdersController } from './orders.controller';
 // import { OrdersService } from './orders.service';
@@ -25,7 +23,7 @@ import { RmqModule } from '@app/common';
     SagaModule,
     CacheModule.register(),
   ],
-  //   controllers: [OrdersController],
+  // controllers: [OrderController],
   //   providers: [OrdersService, OrdersRepository],
 })
 export class OrderModule {}

@@ -6,6 +6,7 @@ import { TelegramController } from './telegram.controller';
 import { TelegramService } from './telegram.service';
 import { AppUpdate } from './telegram.update';
 import { CacheModule } from '@nestjs/cache-manager';
+import { ORDER_SERVICE } from './constants';
 
 @Module({
   imports: [
@@ -19,6 +20,9 @@ import { CacheModule } from '@nestjs/cache-manager';
       useFactory: (configService: ConfigService) => ({
         token: configService.get<string>('TELEGRAM_BOT_TOKEN') || '',
       }),
+    }),
+    RmqModule.register({
+      name: ORDER_SERVICE,
     }),
     RmqModule,
   ],

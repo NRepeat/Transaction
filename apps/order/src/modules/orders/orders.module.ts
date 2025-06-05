@@ -16,6 +16,7 @@ import { TELEGRAM_SERVICE } from '../../constants';
     RmqModule.register({
       name: TELEGRAM_SERVICE,
     }),
+    RmqModule,
   ],
   providers: [OrdersService, ByBitApiService, SagaOrchestrator],
   controllers: [OrdersController],
